@@ -1,3 +1,15 @@
+BLEneocom
+----------
+
+BLEneocom is for ttyUSB0 (like PL2303) which connect to cheap BLE module (BM-S02, TI CC2540)
+```
+Ubuntu --usb --> PL2302 --uart--> CC2540  <== wireless ==> BT usb dongle
+  ^                                                               ^
+  |------------------------ usb ----------------------------------|
+```
+neocom
+======
+
 "neocon" is a simple serial console utility that tries to open a
 ttys that may exist on a system until one such open succeeds. It
 then passes terminal input and output, until there is a read or
@@ -21,19 +33,18 @@ To leave neocon, type "~.". The escape character (~) can be changed
 with the option "-e escape".
 
 
-But this is for ttyUSB0 (like PL2303) which connect to cheap BLE module (BM-S02, TI CC2540)
-
-Ubuntu --usb --> PL2302 --uart--> CC2540  <== wireless ==> BT usb dongle
-  ^                                                               ^
-  |------------------------ usb ----------------------------------|
+Ubuntu BLE operation
+=====================
 
 Use gatttool to operate BLE device on ubuntu 12.04.
 Need to update gatttool as below.
 Get bluez version
+```
  dpkg --status bluez | grep '^Version:'
-
+```
 A kernel version higher then 3.5
 So check with
+```
 # uname -r
 
 get a recent bluez version from http://www.bluez.org/
@@ -56,10 +67,8 @@ The I even had to copy gatttool manually into the /usr/local/bin dir
 
 # cp attrib/gatttool /usr/local/bin/
 
-
-Operate gatttool
-sudo gatttool -b B4:99:4C:3A:C0:6A --interactive
-sudo: unable to resolve host ben-ubuntu
+# sudo gatttool -b B4:99:4C:3A:C0:6A --interactive
+# sudo: unable to resolve host ben-ubuntu
 [   ][B4:99:4C:3A:C0:6A][LE]> connect
 [CON][B4:99:4C:3A:C0:6A][LE]> help
 [CON][B4:99:4C:3A:C0:6A][LE]> characteristics
@@ -91,3 +100,4 @@ handle: 0x004c, char properties: 0x0a, char value handle: 0x004d, uuid: 0000ffa2
 handle: 0x004f, char properties: 0x12, char value handle: 0x0050, uuid: 0000ffa1-0000-1000-8000-00805f9b34fb
 [CON][B4:99:4C:3A:C0:6A][LE]> char-write-cmd 0x22 41
 [CON][B4:99:4C:3A:C0:6A][LE]> char-read-hnd 0x1d
+```
